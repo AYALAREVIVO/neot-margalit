@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c765ae2d870840b199aebcccd92bba5b" Name="Diagram1">
+        <EntityTypeShape EntityType="DBModel.dayCareCenter" Width="1.5" PointX="4.625" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.permissions" Width="1.5" PointX="2.125" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.possibleProblems" Width="1.5" PointX="6.375" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.statusProblem" Width="1.5" PointX="8.125" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.users" Width="1.5" PointX="4.5" PointY="5" />
+        <AssociationConnector Association="DBModel.FK_dayCareCenter_ToTable" />
+        <AssociationConnector Association="DBModel.FK_dayCareCenter_ToTable_1" />
+        <AssociationConnector Association="DBModel.FK_users_ToTable" />
+        <EntityTypeShape EntityType="DBModel.problemsExist" Width="1.5" PointX="6.875" PointY="1.5" />
+        <AssociationConnector Association="DBModel.FK_problemsExist_ToTable_1" />
+        <AssociationConnector Association="DBModel.FK_problemsExist_ToTable_2" />
+        <AssociationConnector Association="DBModel.FK_problemsExist_ToTable" />
+        <EntityTypeShape EntityType="DBModel.possibleCertificate" Width="1.5" PointX="2.375" PointY="1.125" />
+        <EntityTypeShape EntityType="DBModel.statusCertificate" Width="1.5" PointX="8" PointY="8" />
+        <EntityTypeShape EntityType="DBModel.certificateExist" Width="1.5" PointX="9.875" PointY="1.375" />
+        <AssociationConnector Association="DBModel.FK_certificateExist_ToTable" />
+        <AssociationConnector Association="DBModel.FK_certificateExist_ToTable_1" />
+        <AssociationConnector Association="DBModel.FK_certificateExist_ToTable_2" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

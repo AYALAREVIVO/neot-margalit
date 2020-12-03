@@ -1,0 +1,630 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="certificateExist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="statusCertificate" Type="int" Nullable="false" />
+          <Property Name="dayCareCenterId" Type="varchar" MaxLength="14" Nullable="false" />
+          <Property Name="picture" Type="image" />
+          <Property Name="issueDate" Type="date" Nullable="false" />
+          <Property Name="certificateId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="dayCareCenter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="14" Nullable="false" />
+          <Property Name="dayCareCenterDirectorName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="directorId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="maintenanceManId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="welfareSymbol" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="economySymbol" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="permissions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="permission" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="possibleCertificate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="region" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="frequency" Type="int" Nullable="false" />
+          <Property Name="professionalBody" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="possibleProblems">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="region" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="priority" Type="int" />
+        </EntityType>
+        <EntityType Name="problemsExist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="problemStatus" Type="int" Nullable="false" />
+          <Property Name="pictureBefore" Type="varchar" MaxLength="50" />
+          <Property Name="pictureAfter" Type="varchar" MaxLength="50" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="dayCareCenterId" Type="varchar" MaxLength="14" Nullable="false" />
+          <Property Name="maintenanceDescription" Type="nvarchar" MaxLength="50" />
+          <Property Name="problemId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="statusCertificate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="statusCertificateName" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="statusProblem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="statusProblemName" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="userName" />
+          </Key>
+          <Property Name="userName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="permission" Type="int" Nullable="false" />
+          <Property Name="firstName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_certificateExist_ToTable">
+          <End Role="statusCertificate" Type="Self.statusCertificate" Multiplicity="1" />
+          <End Role="certificateExist" Type="Self.certificateExist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="statusCertificate">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="certificateExist">
+              <PropertyRef Name="statusCertificate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_certificateExist_ToTable_1">
+          <End Role="dayCareCenter" Type="Self.dayCareCenter" Multiplicity="1" />
+          <End Role="certificateExist" Type="Self.certificateExist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dayCareCenter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="certificateExist">
+              <PropertyRef Name="dayCareCenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_certificateExist_ToTable_2">
+          <End Role="possibleCertificate" Type="Self.possibleCertificate" Multiplicity="1" />
+          <End Role="certificateExist" Type="Self.certificateExist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="possibleCertificate">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="certificateExist">
+              <PropertyRef Name="certificateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dayCareCenter_ToTable">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="dayCareCenter" Type="Self.dayCareCenter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userName" />
+            </Principal>
+            <Dependent Role="dayCareCenter">
+              <PropertyRef Name="directorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dayCareCenter_ToTable_1">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="dayCareCenter" Type="Self.dayCareCenter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userName" />
+            </Principal>
+            <Dependent Role="dayCareCenter">
+              <PropertyRef Name="maintenanceManId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_problemsExist_ToTable">
+          <End Role="statusProblem" Type="Self.statusProblem" Multiplicity="1" />
+          <End Role="problemsExist" Type="Self.problemsExist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="statusProblem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="problemsExist">
+              <PropertyRef Name="problemStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_problemsExist_ToTable_1">
+          <End Role="dayCareCenter" Type="Self.dayCareCenter" Multiplicity="1" />
+          <End Role="problemsExist" Type="Self.problemsExist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dayCareCenter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="problemsExist">
+              <PropertyRef Name="dayCareCenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_problemsExist_ToTable_2">
+          <End Role="possibleProblems" Type="Self.possibleProblems" Multiplicity="1" />
+          <End Role="problemsExist" Type="Self.problemsExist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="possibleProblems">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="problemsExist">
+              <PropertyRef Name="problemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_users_ToTable">
+          <End Role="permissions" Type="Self.permissions" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="permissions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="permission" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBModelStoreContainer">
+          <EntitySet Name="certificateExist" EntityType="Self.certificateExist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="dayCareCenter" EntityType="Self.dayCareCenter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="permissions" EntityType="Self.permissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="possibleCertificate" EntityType="Self.possibleCertificate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="possibleProblems" EntityType="Self.possibleProblems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="problemsExist" EntityType="Self.problemsExist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="statusCertificate" EntityType="Self.statusCertificate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="statusProblem" EntityType="Self.statusProblem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_certificateExist_ToTable" Association="Self.FK_certificateExist_ToTable">
+            <End Role="statusCertificate" EntitySet="statusCertificate" />
+            <End Role="certificateExist" EntitySet="certificateExist" />
+          </AssociationSet>
+          <AssociationSet Name="FK_certificateExist_ToTable_1" Association="Self.FK_certificateExist_ToTable_1">
+            <End Role="dayCareCenter" EntitySet="dayCareCenter" />
+            <End Role="certificateExist" EntitySet="certificateExist" />
+          </AssociationSet>
+          <AssociationSet Name="FK_certificateExist_ToTable_2" Association="Self.FK_certificateExist_ToTable_2">
+            <End Role="possibleCertificate" EntitySet="possibleCertificate" />
+            <End Role="certificateExist" EntitySet="certificateExist" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dayCareCenter_ToTable" Association="Self.FK_dayCareCenter_ToTable">
+            <End Role="users" EntitySet="users" />
+            <End Role="dayCareCenter" EntitySet="dayCareCenter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dayCareCenter_ToTable_1" Association="Self.FK_dayCareCenter_ToTable_1">
+            <End Role="users" EntitySet="users" />
+            <End Role="dayCareCenter" EntitySet="dayCareCenter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_problemsExist_ToTable" Association="Self.FK_problemsExist_ToTable">
+            <End Role="statusProblem" EntitySet="statusProblem" />
+            <End Role="problemsExist" EntitySet="problemsExist" />
+          </AssociationSet>
+          <AssociationSet Name="FK_problemsExist_ToTable_1" Association="Self.FK_problemsExist_ToTable_1">
+            <End Role="dayCareCenter" EntitySet="dayCareCenter" />
+            <End Role="problemsExist" EntitySet="problemsExist" />
+          </AssociationSet>
+          <AssociationSet Name="FK_problemsExist_ToTable_2" Association="Self.FK_problemsExist_ToTable_2">
+            <End Role="possibleProblems" EntitySet="possibleProblems" />
+            <End Role="problemsExist" EntitySet="problemsExist" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_ToTable" Association="Self.FK_users_ToTable">
+            <End Role="permissions" EntitySet="permissions" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="dayCareCenter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dayCareCenterDirectorName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="directorId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="maintenanceManId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="welfareSymbol" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="economySymbol" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="users" Relationship="DBModel.FK_dayCareCenter_ToTable" FromRole="dayCareCenter" ToRole="users" />
+          <NavigationProperty Name="users1" Relationship="DBModel.FK_dayCareCenter_ToTable_1" FromRole="dayCareCenter" ToRole="users" />
+          <NavigationProperty Name="problemsExist" Relationship="DBModel.FK_problemsExist_ToTable_1" FromRole="dayCareCenter" ToRole="problemsExist" />
+          <NavigationProperty Name="certificateExist" Relationship="DBModel.FK_certificateExist_ToTable_1" FromRole="dayCareCenter" ToRole="certificateExist" />
+        </EntityType>
+        <EntityType Name="permissions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="permission" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="users" Relationship="DBModel.FK_users_ToTable" FromRole="permissions" ToRole="users" />
+        </EntityType>
+        <EntityType Name="possibleProblems">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="region" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="priority" Type="Int32" />
+          <NavigationProperty Name="problemsExist" Relationship="DBModel.FK_problemsExist_ToTable_2" FromRole="possibleProblems" ToRole="problemsExist" />
+        </EntityType>
+        <EntityType Name="statusProblem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="statusProblemName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="problemsExist" Relationship="DBModel.FK_problemsExist_ToTable" FromRole="statusProblem" ToRole="problemsExist" />
+        </EntityType>
+        <EntityContainer Name="DBEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="dayCareCenter" EntityType="Self.dayCareCenter" />
+          <EntitySet Name="permissions" EntityType="Self.permissions" />
+          <EntitySet Name="possibleProblems" EntityType="Self.possibleProblems" />
+          <EntitySet Name="statusProblem" EntityType="Self.statusProblem" />
+          <EntitySet Name="users" EntityType="DBModel.users" />
+          <AssociationSet Name="FK_dayCareCenter_ToTable" Association="DBModel.FK_dayCareCenter_ToTable">
+            <End Role="users" EntitySet="users" />
+            <End Role="dayCareCenter" EntitySet="dayCareCenter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dayCareCenter_ToTable_1" Association="DBModel.FK_dayCareCenter_ToTable_1">
+            <End Role="users" EntitySet="users" />
+            <End Role="dayCareCenter" EntitySet="dayCareCenter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_ToTable" Association="DBModel.FK_users_ToTable">
+            <End Role="permissions" EntitySet="permissions" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <EntitySet Name="problemsExist" EntityType="DBModel.problemsExist" />
+          <AssociationSet Name="FK_problemsExist_ToTable_1" Association="DBModel.FK_problemsExist_ToTable_1">
+            <End Role="dayCareCenter" EntitySet="dayCareCenter" />
+            <End Role="problemsExist" EntitySet="problemsExist" />
+          </AssociationSet>
+          <AssociationSet Name="FK_problemsExist_ToTable_2" Association="DBModel.FK_problemsExist_ToTable_2">
+            <End Role="possibleProblems" EntitySet="possibleProblems" />
+            <End Role="problemsExist" EntitySet="problemsExist" />
+          </AssociationSet>
+          <AssociationSet Name="FK_problemsExist_ToTable" Association="DBModel.FK_problemsExist_ToTable">
+            <End Role="statusProblem" EntitySet="statusProblem" />
+            <End Role="problemsExist" EntitySet="problemsExist" />
+          </AssociationSet>
+          <EntitySet Name="possibleCertificate" EntityType="DBModel.possibleCertificate" />
+          <EntitySet Name="statusCertificate" EntityType="DBModel.statusCertificate" />
+          <EntitySet Name="certificateExist" EntityType="DBModel.certificateExist" />
+          <AssociationSet Name="FK_certificateExist_ToTable" Association="DBModel.FK_certificateExist_ToTable">
+            <End Role="statusCertificate" EntitySet="statusCertificate" />
+            <End Role="certificateExist" EntitySet="certificateExist" />
+          </AssociationSet>
+          <AssociationSet Name="FK_certificateExist_ToTable_1" Association="DBModel.FK_certificateExist_ToTable_1">
+            <End Role="dayCareCenter" EntitySet="dayCareCenter" />
+            <End Role="certificateExist" EntitySet="certificateExist" />
+          </AssociationSet>
+          <AssociationSet Name="FK_certificateExist_ToTable_2" Association="DBModel.FK_certificateExist_ToTable_2">
+            <End Role="possibleCertificate" EntitySet="possibleCertificate" />
+            <End Role="certificateExist" EntitySet="certificateExist" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="userName" />
+          </Key>
+          <Property Name="userName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="permission" Type="Int32" Nullable="false" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="dayCareCenter" Relationship="DBModel.FK_dayCareCenter_ToTable" FromRole="users" ToRole="dayCareCenter" />
+          <NavigationProperty Name="dayCareCenter1" Relationship="DBModel.FK_dayCareCenter_ToTable_1" FromRole="users" ToRole="dayCareCenter" />
+          <NavigationProperty Name="permissions" Relationship="DBModel.FK_users_ToTable" FromRole="users" ToRole="permissions" />
+        </EntityType>
+        <Association Name="FK_dayCareCenter_ToTable">
+          <End Type="DBModel.users" Role="users" Multiplicity="1" />
+          <End Type="DBModel.dayCareCenter" Role="dayCareCenter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userName" />
+            </Principal>
+            <Dependent Role="dayCareCenter">
+              <PropertyRef Name="directorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dayCareCenter_ToTable_1">
+          <End Type="DBModel.users" Role="users" Multiplicity="1" />
+          <End Type="DBModel.dayCareCenter" Role="dayCareCenter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userName" />
+            </Principal>
+            <Dependent Role="dayCareCenter">
+              <PropertyRef Name="maintenanceManId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_users_ToTable">
+          <End Type="DBModel.permissions" Role="permissions" Multiplicity="1" />
+          <End Type="DBModel.users" Role="users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="permissions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="permission" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="problemsExist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="problemStatus" Type="Int32" Nullable="false" />
+          <Property Name="pictureBefore" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pictureAfter" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="dayCareCenterId" Type="String" Nullable="false" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="maintenanceDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="problemId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="dayCareCenter" Relationship="DBModel.FK_problemsExist_ToTable_1" FromRole="problemsExist" ToRole="dayCareCenter" />
+          <NavigationProperty Name="possibleProblems" Relationship="DBModel.FK_problemsExist_ToTable_2" FromRole="problemsExist" ToRole="possibleProblems" />
+          <NavigationProperty Name="statusProblem" Relationship="DBModel.FK_problemsExist_ToTable" FromRole="problemsExist" ToRole="statusProblem" />
+        </EntityType>
+        <Association Name="FK_problemsExist_ToTable_1">
+          <End Type="DBModel.dayCareCenter" Role="dayCareCenter" Multiplicity="1" />
+          <End Type="DBModel.problemsExist" Role="problemsExist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dayCareCenter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="problemsExist">
+              <PropertyRef Name="dayCareCenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_problemsExist_ToTable_2">
+          <End Type="DBModel.possibleProblems" Role="possibleProblems" Multiplicity="1" />
+          <End Type="DBModel.problemsExist" Role="problemsExist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="possibleProblems">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="problemsExist">
+              <PropertyRef Name="problemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_problemsExist_ToTable">
+          <End Type="DBModel.statusProblem" Role="statusProblem" Multiplicity="1" />
+          <End Type="DBModel.problemsExist" Role="problemsExist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="statusProblem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="problemsExist">
+              <PropertyRef Name="problemStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="possibleCertificate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="region" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="frequency" Type="Int32" Nullable="false" />
+          <Property Name="professionalBody" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="certificateExist" Relationship="DBModel.FK_certificateExist_ToTable_2" FromRole="possibleCertificate" ToRole="certificateExist" />
+        </EntityType>
+        <EntityType Name="statusCertificate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="statusCertificateName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="certificateExist" Relationship="DBModel.FK_certificateExist_ToTable" FromRole="statusCertificate" ToRole="certificateExist" />
+        </EntityType>
+        <EntityType Name="certificateExist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="statusCertificate" Type="Int32" Nullable="false" />
+          <Property Name="dayCareCenterId" Type="String" Nullable="false" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="issueDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="certificateId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="statusCertificate1" Relationship="DBModel.FK_certificateExist_ToTable" FromRole="certificateExist" ToRole="statusCertificate" />
+          <NavigationProperty Name="dayCareCenter" Relationship="DBModel.FK_certificateExist_ToTable_1" FromRole="certificateExist" ToRole="dayCareCenter" />
+          <NavigationProperty Name="possibleCertificate" Relationship="DBModel.FK_certificateExist_ToTable_2" FromRole="certificateExist" ToRole="possibleCertificate" />
+        </EntityType>
+        <Association Name="FK_certificateExist_ToTable">
+          <End Type="DBModel.statusCertificate" Role="statusCertificate" Multiplicity="1" />
+          <End Type="DBModel.certificateExist" Role="certificateExist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="statusCertificate">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="certificateExist">
+              <PropertyRef Name="statusCertificate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_certificateExist_ToTable_1">
+          <End Type="DBModel.dayCareCenter" Role="dayCareCenter" Multiplicity="1" />
+          <End Type="DBModel.certificateExist" Role="certificateExist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dayCareCenter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="certificateExist">
+              <PropertyRef Name="dayCareCenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_certificateExist_ToTable_2">
+          <End Type="DBModel.possibleCertificate" Role="possibleCertificate" Multiplicity="1" />
+          <End Type="DBModel.certificateExist" Role="certificateExist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="possibleCertificate">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="certificateExist">
+              <PropertyRef Name="certificateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="DBEntities2">
+          <EntitySetMapping Name="dayCareCenter">
+            <EntityTypeMapping TypeName="DBModel.dayCareCenter">
+              <MappingFragment StoreEntitySet="dayCareCenter">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="dayCareCenterDirectorName" ColumnName="dayCareCenterDirectorName" />
+                <ScalarProperty Name="directorId" ColumnName="directorId" />
+                <ScalarProperty Name="maintenanceManId" ColumnName="maintenanceManId" />
+                <ScalarProperty Name="welfareSymbol" ColumnName="welfareSymbol" />
+                <ScalarProperty Name="economySymbol" ColumnName="economySymbol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="permissions">
+            <EntityTypeMapping TypeName="DBModel.permissions">
+              <MappingFragment StoreEntitySet="permissions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="permission" ColumnName="permission" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="possibleProblems">
+            <EntityTypeMapping TypeName="DBModel.possibleProblems">
+              <MappingFragment StoreEntitySet="possibleProblems">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="region" ColumnName="region" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="priority" ColumnName="priority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="statusProblem">
+            <EntityTypeMapping TypeName="DBModel.statusProblem">
+              <MappingFragment StoreEntitySet="statusProblem">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="statusProblemName" ColumnName="statusProblemName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="DBModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="permission" ColumnName="permission" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="problemsExist">
+            <EntityTypeMapping TypeName="DBModel.problemsExist">
+              <MappingFragment StoreEntitySet="problemsExist">
+                <ScalarProperty Name="problemId" ColumnName="problemId" />
+                <ScalarProperty Name="maintenanceDescription" ColumnName="maintenanceDescription" />
+                <ScalarProperty Name="dayCareCenterId" ColumnName="dayCareCenterId" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="pictureAfter" ColumnName="pictureAfter" />
+                <ScalarProperty Name="pictureBefore" ColumnName="pictureBefore" />
+                <ScalarProperty Name="problemStatus" ColumnName="problemStatus" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="possibleCertificate">
+            <EntityTypeMapping TypeName="DBModel.possibleCertificate">
+              <MappingFragment StoreEntitySet="possibleCertificate">
+                <ScalarProperty Name="professionalBody" ColumnName="professionalBody" />
+                <ScalarProperty Name="frequency" ColumnName="frequency" />
+                <ScalarProperty Name="region" ColumnName="region" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="statusCertificate">
+            <EntityTypeMapping TypeName="DBModel.statusCertificate">
+              <MappingFragment StoreEntitySet="statusCertificate">
+                <ScalarProperty Name="statusCertificateName" ColumnName="statusCertificateName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="certificateExist">
+            <EntityTypeMapping TypeName="DBModel.certificateExist">
+              <MappingFragment StoreEntitySet="certificateExist">
+                <ScalarProperty Name="certificateId" ColumnName="certificateId" />
+                <ScalarProperty Name="issueDate" ColumnName="issueDate" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+                <ScalarProperty Name="dayCareCenterId" ColumnName="dayCareCenterId" />
+                <ScalarProperty Name="statusCertificate" ColumnName="statusCertificate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
